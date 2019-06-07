@@ -1,0 +1,20 @@
+{
+  "name": "@chester/cli",
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "types/index.d.ts",
+  "bin": {
+    "chester": "./bin/cli"
+  },
+  "devDependencies": {
+    "@types/yargs": "^13.0.0",
+    "typescript": "^3.4.5"
+  },
+  "dependencies": {
+    "yargs": "^13.2.4",
+    "@chester/chester": "^0.0.1",
+    "@chester/config": "^0.0.1",
+    "@chester/http-server": "^0.0.1"
+  }
+}

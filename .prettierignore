@@ -1,0 +1,5 @@
+*.html
+*.tsbuildinfo
+
+packages/*/lib
+packages/*/types

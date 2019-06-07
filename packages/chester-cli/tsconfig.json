@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src",
+    "declarationDir": "types"
+  },
+  "references": [
+    { "path": "../chester" },
+    { "path": "../chester-config" },
+    { "path": "../chester-http-server" }
+  ]
+}

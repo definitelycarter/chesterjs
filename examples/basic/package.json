@@ -1,0 +1,14 @@
+{
+  "name": "example-basic",
+  "version": "0.0.1",
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "@types/react": "^16.8.18",
+    "@types/react-dom": "^16.8.4",
+    "expect": "^24.8.0",
+    "webpack": "^4.32.2"
+  }
+}

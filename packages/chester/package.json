@@ -1,0 +1,14 @@
+{
+  "name": "@chester/chester",
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "types/index.d.ts",
+  "devDependencies": {
+    "typescript": "^3.4.5"
+  },
+  "dependencies": {
+    "@chester/config": "^0.0.1",
+    "glob": "^7.1.4"
+  }
+}

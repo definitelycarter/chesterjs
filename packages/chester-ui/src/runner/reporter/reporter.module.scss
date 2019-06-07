@@ -1,0 +1,33 @@
+.reporter {
+  width: 300px;
+  padding-left: 5px;
+  background-color: #fff;
+  border-right: 1px solid #ccc;
+
+  .passed {
+    color: green;
+  }
+
+  .failed {
+    color: red;
+  }
+
+  .pending {
+    color: orange;
+  }
+}
+
+.suite {
+  padding-bottom: 5px;
+}
+
+.test {
+  padding: 5px 0px;
+  &:last-child {
+    padding-bottom: 0px;
+  }
+}
+
+.title {
+  padding-left: 5px;
+}

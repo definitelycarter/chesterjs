@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react",
+    "outDir": "./lib",
+    "rootDir": "./src",
+    "declarationDir": "./types"
+  },
+  "references": [{ "path": "../chester" }]
+}

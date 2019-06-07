@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "emitDeclarationOnly": true,
+    "jsx": "react",
+    "rootDir": "src",
+    "declarationDir": "types"
+  }
+}
