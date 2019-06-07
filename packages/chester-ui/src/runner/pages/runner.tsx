@@ -16,6 +16,10 @@ export function RunnerPage(props: RunnerPageProps) {
         <Reporter />
         {props.children}
       </div>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Work+Sans:400,500&display=swap"
+      />
       <link rel="stylesheet" href="/css/fontawesome.min.css" />
       <link rel="stylesheet" href="/css/light.min.css" />
       <link rel="stylesheet" href="/css/runner.front.css" />

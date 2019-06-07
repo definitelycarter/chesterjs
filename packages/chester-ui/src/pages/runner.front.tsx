@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { RunnerPage } from '../runner';
-
 const title = document.title;
 
 ReactDOM.hydrate(

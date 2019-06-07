@@ -9,11 +9,6 @@ it('this is a root test', () => {
   expect(true).toBe(true);
 });
 
-it('this is a failed async test', async () => {
-  await sleep(1000);
-  expect(true).toBe(false);
-});
-
 describe('another component describe', () => {
   it('simple test', () => {
     expect(true).toBe(true);
@@ -24,6 +19,10 @@ describe('typescript component', () => {
   describe('this is a nested describe block', () => {
     it('this is a deeply nested test', () => {
       expect(true).toBe(true);
+    });
+    it('this is a failed async test', async () => {
+      await sleep(1000);
+      expect(true).toBe(false);
     });
   });
   describe('this is a nested describe block', () => {

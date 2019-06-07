@@ -1,18 +1,19 @@
 import { Runner } from 'mocha';
-import React, { useReducer } from 'react';
-import { reducer, Suite, Test } from './reducer';
+import React, { useReducer, Dispatch, useEffect, useRef } from 'react';
+import { reducer, Suite, Test, Action } from './reducer';
+import '../../colors.css';
 import styles from './reporter.module.scss';
 
 export function Reporter() {
-  const root = useReporter();
+  const { suite } = useReporter();
   return (
     <div className={styles.reporter}>
-      {root && (
+      {suite && (
         <>
-          {root.tests.map((test, t) => {
+          {suite.tests.map((test, t) => {
             return <TestRow key={t} test={test} />;
           })}
-          {root.suites.map((suite, i) => {
+          {suite.suites.map((suite, i) => {
             return <SuiteRow key={i} suite={suite} />;
           })}
         </>
@@ -26,18 +27,41 @@ interface SuiteRowProps {
   suite: Suite;
 }
 function SuiteRow({ depth = 0, suite }: SuiteRowProps) {
+  const state = getSuiteState(suite);
   return (
-    <div className={styles.suite} style={{ marginLeft: depth * 15 }}>
-      <i className="fal fa-chevron-down" />
-      <span className={styles.title}>{suite.title}</span>
+    <>
+      <div className={`${styles.suite} ${styles[state]}`}>
+        <span style={{ marginLeft: depth * 10 }} className={styles.title}>
+          {suite.title}
+        </span>
+      </div>
       {suite.tests.map((test, t) => {
         return <TestRow key={t} depth={depth + 1} test={test} />;
       })}
       {suite.suites.map((suite, i) => {
         return <SuiteRow key={i} depth={depth + 1} suite={suite} />;
       })}
-    </div>
+    </>
   );
+}
+
+function getSuiteState(suite: Suite): 'pending' | 'passed' | 'failed' {
+  let state: 'pending' | 'passed' | 'failed' = 'pending';
+  if (suite.suites.length) {
+    if (suite.suites.every(s => getSuiteState(s) === 'passed')) {
+      state = 'passed';
+    } else if (suite.suites.some(s => getSuiteState(s) === 'failed')) {
+      state = 'failed';
+    } else {
+      state = 'pending';
+    }
+  }
+  if (state === 'failed') return state;
+
+  if (suite.tests.every(t => t.state === 'passed')) return 'passed';
+  else if (suite.tests.some(t => t.state === 'failed')) return 'failed';
+
+  return 'pending';
 }
 
 interface TestRowProps {
@@ -46,22 +70,13 @@ interface TestRowProps {
 }
 function TestRow({ depth = 0, test }: TestRowProps) {
   let className: string;
-
-  switch (test.state) {
-    case 'passed':
-      className = `${styles.passed} fa-check-circle`;
-      break;
-    case 'failed':
-      className = `${styles.failed} fa-times-circle`;
-      break;
-    default:
-      className = `${styles.pending} fa-spin fa-spinner-third`;
-  }
-
+  const state = test.state === undefined ? 'pending' : test.state;
+  className = `${styles.title} ${styles.test} ${styles[state]}`;
   return (
-    <div className={styles.test} style={{ marginLeft: depth * 5 }}>
-      <i className={`fal ${className}`} />
-      <span className={styles.title}>{test.title}</span>
+    <div className={className}>
+      <div style={{ marginLeft: depth * 10 }} className={styles.title}>
+        {test.title}
+      </div>
     </div>
   );
 }
@@ -70,42 +85,27 @@ function useReporter() {
   const [state, dispatch] = useReducer(reducer, {
     suite: undefined,
   });
-  if (typeof window === 'undefined') return state.suite;
-  // @ts-ignore
-  window.Reporter = function(runner: Runner) {
-    runner.on('start', () => {
-      dispatch({ type: 'START' });
-    });
+  const reporterRef = useRef(createDispatchReporter(dispatch));
+  if (typeof window === 'undefined') return state;
 
-    runner.on('suite', suite => {
-      dispatch({ type: 'SUITE_UPDATED', suite: hierarchy(root(runner.suite)) });
+  useEffect(() => {
+    const iframe = document.getElementById('env') as HTMLIFrameElement | null;
+    if (!iframe) {
+      throw new Error('Unable to get iframe');
+    }
+    const window = iframe.contentWindow!;
+    window.addEventListener('DOMContentLoaded', () => {
+      // @ts-ignore
+      const mocha = window.mocha as {
+        run: () => void;
+        reporter: (reporter: any) => void;
+      };
+      mocha.reporter(reporterRef.current);
+      mocha.run();
     });
+  }, []);
 
-    runner.on('test', test => {
-      dispatch({ type: 'SUITE_UPDATED', suite: hierarchy(root(runner.suite)) });
-    });
-
-    runner.on('pass', test => {
-      dispatch({ type: 'SUITE_UPDATED', suite: hierarchy(root(runner.suite)) });
-    });
-
-    runner.on('fail', test => {
-      dispatch({ type: 'SUITE_UPDATED', suite: hierarchy(root(runner.suite)) });
-    });
-
-    runner.on('test end', test => {
-      dispatch({ type: 'SUITE_UPDATED', suite: hierarchy(root(runner.suite)) });
-    });
-
-    runner.on('suite end', suite => {
-      dispatch({ type: 'SUITE_UPDATED', suite: hierarchy(root(runner.suite)) });
-    });
-
-    runner.on('end', () => {
-      dispatch({ type: 'END' });
-    });
-  };
-  return state.suite;
+  return state;
 }
 
 function hierarchy({ tests, suites, title, root }: Mocha.Suite): Suite {
@@ -125,3 +125,40 @@ function root(suite: Mocha.Suite): Mocha.Suite {
   if (suite.parent) return root(suite.parent);
   return suite;
 }
+
+const createDispatchReporter = (dispatch: Dispatch<Action>) => (
+  runner: Runner
+) => {
+  runner.on('start', () => {
+    dispatch({ type: 'START' });
+  });
+
+  runner.on('suite', suite => {
+    dispatch({ type: 'SUITE_UPDATED', suite: hierarchy(root(runner.suite)) });
+  });
+
+  runner.on('test', test => {
+    dispatch({ type: 'SUITE_UPDATED', suite: hierarchy(root(runner.suite)) });
+  });
+
+  runner.on('pass', test => {
+    dispatch({ type: 'SUITE_UPDATED', suite: hierarchy(root(runner.suite)) });
+  });
+
+  runner.on('fail', test => {
+    dispatch({ type: 'TEST_FAILED' });
+    dispatch({ type: 'SUITE_UPDATED', suite: hierarchy(root(runner.suite)) });
+  });
+
+  runner.on('test end', test => {
+    dispatch({ type: 'SUITE_UPDATED', suite: hierarchy(root(runner.suite)) });
+  });
+
+  runner.on('suite end', suite => {
+    dispatch({ type: 'SUITE_UPDATED', suite: hierarchy(root(runner.suite)) });
+  });
+
+  runner.on('end', () => {
+    dispatch({ type: 'END' });
+  });
+};

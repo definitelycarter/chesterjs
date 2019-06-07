@@ -1,33 +1,47 @@
 .reporter {
-  width: 300px;
-  padding-left: 5px;
-  background-color: #fff;
+  width: 400px;
+  background-color: var(--grey50);
   border-right: 1px solid #ccc;
-
-  .passed {
-    color: green;
-  }
-
-  .failed {
-    color: red;
-  }
-
-  .pending {
-    color: orange;
-  }
+  overflow: scroll;
 }
 
 .suite {
-  padding-bottom: 5px;
+  padding: 2px 0px 2px 5px;
+  border-left: 5px solid transparent;
+  &.passed {
+    border-left-color: var(--green300);
+  }
+  &.failed {
+    border-left-color: var(--red300);
+    .title {
+      color: var(--red300);
+    }
+  }
+  &.pending {
+    border-left-color: var(--brand-info);
+  }
 }
 
 .test {
-  padding: 5px 0px;
-  &:last-child {
-    padding-bottom: 0px;
+  padding: 2px 0px 2px 5px;
+  border-left: 5px solid transparent;
+  &.passed {
+    border-left-color: var(--green700);
+  }
+
+  &.failed {
+    border-left-color: var(--brand-danger);
+    .title {
+      color: var(--red700);
+    }
+  }
+
+  &.pending {
+    border-left-color: var(--brand-info);
   }
 }
 
 .title {
-  padding-left: 5px;
+  font: 14px 'Work Sans', sans-serif;
+  font-weight: 500;
 }

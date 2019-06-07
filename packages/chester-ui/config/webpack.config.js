@@ -24,6 +24,34 @@ const base = {
         ],
       },
       {
+        test: /\.css$/,
+        loader: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              camelCase: true,
+              sourceMap: isDevelopment,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.module\.css$/,
+        loader: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[name]__[local]___[hash:base64:5]',
+              camelCase: true,
+              sourceMap: isDevelopment,
+            },
+          },
+        ],
+      },
+      {
         test: /\.module\.s(a|c)ss$/,
         loader: [
           MiniCssExtractPlugin.loader,

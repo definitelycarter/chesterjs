@@ -13,7 +13,6 @@ export function EnvironmentPage(props: LayoutProps) {
           dangerouslySetInnerHTML={{
             __html: `
               mocha.setup('bdd');
-              mocha.reporter(window.parent.Reporter);
             `,
           }}
         />
@@ -22,13 +21,6 @@ export function EnvironmentPage(props: LayoutProps) {
       <body>
         <div id="root" />
       </body>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            mocha.run();
-            `,
-        }}
-      />
     </html>
   );
 }
