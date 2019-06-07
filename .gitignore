@@ -3,6 +3,7 @@
 
 /node_modules
 
+/examples/*/.cache
 /examples/*/node_modules
 
 /packages/*/node_modules
