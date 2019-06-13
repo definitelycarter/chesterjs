@@ -1,13 +1,7 @@
 import { app, BrowserWindow } from 'electron';
 import path from 'path';
 
-require('electron-reload')('./src', {
-  electron: path.resolve('node_modules', '.bin', 'electron'),
-  // argv: process.argv.slice(1),
-  // forceHardReset: true,
-});
 let mainWindow: BrowserWindow | null;
-
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
@@ -18,8 +12,7 @@ function createWindow() {
       nodeIntegration: true,
     },
   });
-  mainWindow.loadFile(path.resolve('static/browser.html'));
-
+  mainWindow.loadFile(path.resolve(__dirname, '..', 'static/browser.html'));
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
