@@ -1,0 +1,24 @@
+.container {
+  height: 32px;
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.button {
+  display: flex;
+  padding: 0px 10px;
+  align-items: center;
+  justify-content: start;
+  border-right: 1px solid var(--border-color);
+  &.browser {
+    justify-content: center;
+    width: 80px;
+
+    .label {
+      font: 14px 'Work Sans';
+      font-weight: 500;
+      color: var(--primary-text-color);
+      --webkit-font-smoothing: antialiased;
+    }
+  }
+}

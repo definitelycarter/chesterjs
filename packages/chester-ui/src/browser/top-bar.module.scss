@@ -1,0 +1,28 @@
+.container {
+  height: 40px;
+  display: flex;
+  padding: 0px 10px;
+  align-items: center;
+  background: #333333;
+  justify-content: space-between;
+}
+
+.project-name {
+  font: 13px 'Work Sans';
+  font-weight: 500;
+  color: #dddddd;
+}
+
+.filter {
+  font: 12px 'Work Sans';
+  color: #dddddd;
+  padding: 5px;
+  border-radius: 3px;
+  background: #222222;
+  border: 1px solid #888888;
+  &::placeholder {
+    font: 12px 'Work Sans';
+    font-weight: 400;
+    color: #ddd;
+  }
+}
