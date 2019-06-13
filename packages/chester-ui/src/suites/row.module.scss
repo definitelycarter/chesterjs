@@ -1,0 +1,10 @@
+@import '../index.scss';
+
+.container {
+  display: flex;
+  background: #fff;
+  .content {
+    width: 100%;
+    border-bottom: 1px solid var(--border-color);
+  }
+}

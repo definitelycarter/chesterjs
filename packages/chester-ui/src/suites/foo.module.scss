@@ -1,0 +1,43 @@
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.collapse-button {
+  width: 32px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: var(--primary-text-color);
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.label {
+  font: 12px 'Work Sans';
+  font-weight: 500;
+  line-height: 14px;
+  color: var(--primary-text-color);
+  --webkit-font-smoothing: antialiased;
+  &.medium {
+    font-weight: 500;
+  }
+}
+
+.duration {
+  padding-right: 10px;
+  .unit {
+    font-weight: 400;
+  }
+}
+
+.title {
+  display: flex;
+}

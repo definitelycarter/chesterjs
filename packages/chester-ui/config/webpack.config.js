@@ -2,8 +2,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
-
-const base = {
+module.exports = {
   context: path.resolve(__dirname, '..', 'src'),
   mode: isDevelopment ? 'development' : 'production',
   resolve: {
@@ -30,7 +29,7 @@ const base = {
           {
             loader: 'css-loader',
             options: {
-              camelCase: true,
+              // camelCase: true,
               sourceMap: isDevelopment,
             },
           },
@@ -86,41 +85,48 @@ const base = {
           },
         ],
       },
+      {
+        test: /\.(svg|ttf|eot|woff|woff2)$/,
+        use: {
+          loader: 'file-loader',
+          options: { name: '[name].[ext]', outputPath: 'fonts/' },
+        },
+      },
     ],
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: './css/[name].css',
+      filename: '[name].css',
     }),
   ],
 };
 
-module.exports = [
-  {
-    ...base,
-    target: 'node',
-    externals: {
-      react: {
-        commonjs: 'react',
-      },
-    },
-    entry: {
-      ['runner.back']: './pages/runner.back.tsx',
-    },
-    output: {
-      filename: '[name].js',
-      libraryTarget: 'commonjs',
-      path: path.resolve(__dirname, '..', 'lib', 'pages'),
-    },
-  },
-  {
-    ...base,
-    entry: {
-      ['runner.front']: './pages/runner.front.tsx',
-    },
-    output: {
-      filename: './js/[name].js',
-      path: path.resolve(__dirname, '..', 'static'),
-    },
-  },
-];
+// module.exports = [
+//   {
+//     ...base,
+//     target: 'node',
+//     externals: {
+//       react: {
+//         commonjs: 'react',
+//       },
+//     },
+//     entry: {
+//       ['runner.back']: './pages/runner.back.tsx',
+//     },
+//     output: {
+//       filename: '[name].js',
+//       libraryTarget: 'commonjs',
+//       path: path.resolve(__dirname, '..', 'lib', 'pages'),
+//     },
+//   },
+//   {
+//     ...base,
+//     entry: {
+//       ['runner.front']: './pages/runner.front.tsx',
+//     },
+//     output: {
+//       filename: './js/[name].js',
+//       path: path.resolve(__dirname, '..', 'static'),
+//     },
+//   },
+// ];
