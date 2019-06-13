@@ -8,6 +8,17 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.ts', '.tsx'],
   },
+  entry: '.',
+  output: {
+    filename: '[name].js',
+    libraryTarget: 'commonjs',
+    path: path.resolve(__dirname, '..', 'lib'),
+  },
+  externals: {
+    react: {
+      commonjs: 'react',
+    },
+  },
   module: {
     rules: [
       {
@@ -29,7 +40,7 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              // camelCase: true,
+              camelCase: true,
               sourceMap: isDevelopment,
             },
           },
@@ -96,7 +107,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '[name].css',
+      filename: './css/[name].css',
     }),
   ],
 };

@@ -2,7 +2,7 @@
   "name": "@chester/ui",
   "version": "0.0.1",
   "license": "MIT",
-  "main": "index.js",
+  "main": "lib/main.js",
   "types": "types/index.d.ts",
   "scripts": {
     "webpack": "webpack",

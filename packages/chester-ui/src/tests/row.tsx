@@ -6,7 +6,7 @@ import styles from './row.module.scss';
 interface StatusRowProps {
   status: 'passed' | 'failed' | 'pending';
 }
-export function SuiteRow(props: StatusRowProps) {
+export function TestRow(props: StatusRowProps) {
   return (
     <div className={styles.container}>
       <StatusIcon type="suite" status={props.status} />

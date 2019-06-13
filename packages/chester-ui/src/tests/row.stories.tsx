@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { SuiteRow } from './row';
+import { TestRow } from './row';
 
 storiesOf('test/row', module)
-  .add('passed', () => <SuiteRow status="passed" />)
-  .add('failed', () => <SuiteRow status="failed" />);
+  .add('passed', () => <TestRow status="passed" />)
+  .add('failed', () => <TestRow status="failed" />);
