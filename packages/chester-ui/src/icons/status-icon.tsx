@@ -1,4 +1,5 @@
 import React from 'react';
+import '../assets/css';
 import styles from './status-icon.module.scss';
 
 interface StatusIconProps {

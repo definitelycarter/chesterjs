@@ -1,28 +1,23 @@
 .container {
-  width: 100%;
+  display: flex;
+  background: #fff;
+  border-bottom: 1px solid var(--border-color);
+  .content {
+    width: 100%;
+  }
+}
+
+.wrapper {
+  padding: 0px 10px;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.collapse-button {
-  width: 32px;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 14px;
-  color: var(--primary-text-color);
-  cursor: pointer;
-  &:hover {
-    opacity: 0.7;
-  }
-}
-
 .label {
   font: 12px 'Work Sans';
-  font-weight: 500;
+  font-weight: 400;
   line-height: 14px;
   color: var(--primary-text-color);
   --webkit-font-smoothing: antialiased;
@@ -32,7 +27,8 @@
 }
 
 .duration {
-  padding-right: 10px;
+  font: 12px 'Work Sans';
+  font-weight: 500;
   .unit {
     font-weight: 400;
   }

@@ -13,16 +13,11 @@ export function SuiteRow(props: StatusRowProps) {
       <div className={styles.content}>
         <div className={styles.wrapper}>
           <div className={styles.title}>
-            <div className={styles['collapse-button']}>
-              <i className="fal fa-caret-right" />
-            </div>
-            <div className={styles.title}>
-              <span className={styles.label}>Hello, World</span>
-            </div>
+            <span className={styles.label}>Hello, World</span>
           </div>
           <div className={styles.duration}>
-            <span className={styles.label}>25</span>
-            <span className={`${styles.label} ${styles.unit}`}>sec</span>
+            <span className={styles.label}>8</span>
+            <span className={`${styles.label} ${styles.unit}`}>ms</span>
           </div>
         </div>
       </div>

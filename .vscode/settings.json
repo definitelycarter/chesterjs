@@ -4,6 +4,7 @@
   "files.exclude": {
     "**/lib": true,
     "**/types": true,
+    "**/node_modules": true,
     "**/tsconfig.tsbuildinfo": true
   }
 }
