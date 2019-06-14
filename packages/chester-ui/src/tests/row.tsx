@@ -12,7 +12,7 @@ interface StatusRowProps {
 export function TestRow({ depth = 1, ...rest }: StatusRowProps) {
   return (
     <div className={styles.container}>
-      <StatusIcon type="suite" status={rest.status} />
+      <StatusIcon type="test" status={rest.status} />
       <div className={styles.content}>
         <div className={styles.wrapper} style={{ paddingLeft: depth * 32 }}>
           <div className={styles.title}>
