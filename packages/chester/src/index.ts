@@ -1,2 +1,2 @@
 export { run } from './run';
-export { resolveFiles } from './resolver';
+export { resolveFiles, Folder, File } from './resolver';

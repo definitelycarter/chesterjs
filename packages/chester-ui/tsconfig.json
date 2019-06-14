@@ -7,5 +7,5 @@
     "declarationDir": "types",
     "types": ["./src/index"]
   },
-  "references": [{ "path": "../chester-config" }]
+  "references": [{ "path": "../chester-config" }, { "path": "../chester" }]
 }

@@ -1,6 +1,6 @@
 import { InferredOptionTypes } from 'yargs';
-import { run } from '@chester/http-server';
-import console = require('console');
+// import { run } from '@chester/http-server';
+// import console = require('console');
 
 export const command = 'serve';
 export const desc = 'serve chester in an http environment';
@@ -16,11 +16,11 @@ export const builder = {
 };
 
 export async function handler(argv: InferredOptionTypes<typeof builder>) {
-  try {
-    await run(argv);
-    console.log('chester is listening on port ' + argv.port);
-  } catch (e) {
-    console.error(e.stack);
-    process.exit(1);
-  }
+  // try {
+  //   await run(argv);
+  //   console.log('chester is listening on port ' + argv.port);
+  // } catch (e) {
+  //   console.error(e.stack);
+  //   process.exit(1);
+  // }
 }

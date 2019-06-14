@@ -2,11 +2,19 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <link href="css/normalize.css" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
     <title>Chester</title>
+    <style>
+      html,body,#root {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      require('../lib/renderer');
+    </script>
   </body>
 </html>

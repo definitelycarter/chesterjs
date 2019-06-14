@@ -3,6 +3,7 @@ const path = require('path');
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 module.exports = {
+  target: 'node',
   context: path.resolve(__dirname, '..', 'src'),
   mode: isDevelopment ? 'development' : 'production',
   resolve: {

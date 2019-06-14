@@ -31,3 +31,15 @@ function resolvePattern(
     });
   });
 }
+
+export interface Folder {
+  name: string;
+  path: string;
+  files: File[];
+  folders: Folder[];
+}
+
+export interface File {
+  name: string;
+  path: string;
+}

@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@chester/chester": "^0.0.1",
+    "@chester/ui": "^0.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "styled-components": "^4.2.0",
