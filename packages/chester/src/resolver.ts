@@ -1,10 +1,12 @@
+import fs from 'fs';
 import glob from 'glob';
 import * as path from 'path';
 import { Config } from '@chester/config';
 
-export function resolveFiles({ files, root }: Config): Promise<string[]> {
+export function resolveFiles({ files, root }: Config): Promise<Folder> {
+  let promise: Promise<string[]>;
   if (Array.isArray(files)) {
-    return files.reduce((promise, file) => {
+    promise = files.reduce((promise, file) => {
       return promise.then(files => {
         return resolvePattern(root!, file).then(matches => {
           return files.concat(matches);
@@ -12,11 +14,24 @@ export function resolveFiles({ files, root }: Config): Promise<string[]> {
       });
     }, Promise.resolve<string[]>([]));
   } else if (typeof files === 'string') {
-    return resolvePattern(root!, files).then(matches => {
+    promise = resolvePattern(root!, files).then(matches => {
       return matches;
     });
+  } else {
+    throw new Error('Invalid property "files" found in config');
   }
-  throw new Error('Invalid property "files" found in config');
+
+  const folder: Folder = {
+    name: path.basename(root),
+    path: root,
+    folders: [],
+    files: [],
+  };
+  return promise.then(files => {
+    const applyHierarchy = hierarchyBuilder(folder);
+    applyHierarchy(files);
+    return folder;
+  });
 }
 
 function resolvePattern(
@@ -43,3 +58,47 @@ export interface File {
   name: string;
   path: string;
 }
+
+const hierarchyBuilder = (root: Folder) => (files: string[]) => {
+  function ensureFolder(parts: string[]): Folder {
+    let subFolder: Folder = root;
+    parts.forEach((part, i) => {
+      const subParts = parts.slice(0, i + 1);
+      const filePath = subParts.join(path.sep);
+      let folder = subFolder.folders.find(f => f.path === filePath);
+      if (!folder) {
+        folder = {
+          name: part,
+          path: filePath,
+          folders: [],
+          files: [],
+        };
+        subFolder.folders.push(folder);
+      }
+      subFolder = folder;
+    });
+    return subFolder;
+  }
+
+  function processFile(filePath: string) {
+    const trimmed = path.relative(root.path, filePath);
+    const parts = trimmed.split(path.sep);
+    parts.forEach((part, index) => {
+      const subParts = parts.slice(0, index + 1);
+      let filePath = subParts.join(path.sep);
+      let stat = fs.lstatSync(path.resolve(root.path, filePath));
+      if (stat.isDirectory()) {
+        ensureFolder(subParts);
+      } else {
+        let folder = ensureFolder(subParts.slice(0, index));
+        folder.files.push({ name: part, path: filePath });
+      }
+    });
+  }
+
+  files.forEach((filePath: string) => {
+    const stat = fs.lstatSync(filePath);
+    if (stat.isDirectory()) return;
+    processFile(filePath);
+  }, []);
+};

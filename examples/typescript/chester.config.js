@@ -1,5 +1,5 @@
 module.exports = {
-  preprocessor: './scripts/preprocessor.js',
+  root: './src',
   files: ['**/__tests__/*.spec.*'],
-  globals: () => ({}),
+  preprocessor: './scripts/preprocessor.js',
 };
