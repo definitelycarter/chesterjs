@@ -1,26 +1,28 @@
+import { File, Folder } from '@chester/chester';
 import React from 'react';
 import '../assets/css';
-import styles from './browser.module.scss';
-import { TopBar } from './top-bar';
-import { ToolBar } from './tool-bar';
-import { Folder, File } from '@chester/chester';
 import { SuiteRow } from '../suites';
 import { TestRow } from '../tests';
+import styles from './browser.module.scss';
+import { ToolBar } from './tool-bar';
+import { TopBar } from './top-bar';
 
 interface BrowserProps {
-  folders: Folder[];
+  folder: Folder;
 }
-export function Browser(props: BrowserProps) {
+export function Browser({ folder }: BrowserProps) {
   return (
-    <div className={styles.container}>
-      <TopBar />
+    <>
+      <TopBar projectName={folder.name} />
       <ToolBar />
-      <div className={styles.list}>
-        {props.folders.map((folder, i) => {
-          return <FolderRow key={i} folder={folder} depth={1} />;
-        })}
+      <div className={styles.wrapper}>
+        <div className={styles.list}>
+          {folder.folders.map((folder, i) => {
+            return <FolderRow key={i} folder={folder} depth={1} />;
+          })}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

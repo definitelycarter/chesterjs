@@ -1,5 +1,6 @@
 import yargs from 'yargs';
 import { readConfig } from '@chester/config';
+import { remote } from 'electron';
 
 const options = {
   project: {
@@ -10,7 +11,7 @@ const options = {
   },
 };
 
-const args = yargs(process.argv)
+const args = yargs(remote.process.argv)
   .options(options)
   .help('-h').argv;
 

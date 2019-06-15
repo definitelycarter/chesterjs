@@ -5,8 +5,12 @@ import { TopBar } from './top-bar';
 import { Browser } from './browser';
 
 storiesOf('browser', module)
-  .add('top-bar', () => <TopBar />)
-  .add('window', () => <Browser folders={folders} />);
+  .add('top-bar', () => <TopBar projectName="my story" />)
+  .add('window', () => (
+    <Browser
+      folder={{ name: 'story', path: '', folders: folders, files: [] }}
+    />
+  ));
 
 const folders: Folder[] = [
   {
