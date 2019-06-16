@@ -1,5 +1,5 @@
 import { File, Folder } from '@chester/chester';
-import React from 'react';
+import React, { useState } from 'react';
 import '../assets/css';
 import { SuiteRow } from '../suites';
 import { TestRow } from '../tests';
@@ -10,7 +10,7 @@ import { TopBar } from './top-bar';
 interface BrowserProps {
   folder: Folder;
   onRunFile?: (file: File) => void;
-  onRunFolder?: (folder: Folder) => void;
+  onRunFolder?: (folder: TestFolder) => void;
 }
 export function Browser({ folder, onRunFolder }: BrowserProps) {
   return (
@@ -46,6 +46,7 @@ interface FolderRowProps {
   folder: TestFolder;
 }
 function FolderRow(props: FolderRowProps) {
+  const [open, setOpen] = useState(true);
   return (
     <div>
       <SuiteRow
@@ -53,13 +54,23 @@ function FolderRow(props: FolderRowProps) {
         depth={props.depth}
         name={props.folder.name}
         duration={{ interval: 8, unit: 'ms' }}
+        open={open}
+        onToggle={() => {
+          setOpen(!open);
+        }}
       />
-      {props.folder.files.map((file, i) => {
-        return <SpecRow key={i} spec={file} depth={props.depth} />;
-      })}
-      {props.folder.folders.map((folder, i) => {
-        return <FolderRow key={i} folder={folder} depth={props.depth + 1} />;
-      })}
+      {open && (
+        <>
+          {props.folder.files.map((file, i) => {
+            return <SpecRow key={i} spec={file} depth={props.depth} />;
+          })}
+          {props.folder.folders.map((folder, i) => {
+            return (
+              <FolderRow key={i} folder={folder} depth={props.depth + 1} />
+            );
+          })}
+        </>
+      )}
     </div>
   );
 }

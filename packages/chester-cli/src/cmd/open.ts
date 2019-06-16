@@ -1,16 +1,14 @@
 import child_process from 'child_process';
 import path from 'path';
 import { InferredOptionTypes } from 'yargs';
-type Arguments = InferredOptionTypes<typeof builder & { dev?: boolean }>;
+import { BaseOptions } from '../options';
+
+type CommandArguments = typeof builder & typeof BaseOptions;
+type Arguments = InferredOptionTypes<CommandArguments> & { dev?: boolean };
 
 export const command = 'open';
 export const desc = 'open a project';
-export const builder = {
-  project: {
-    description: 'The path of the project.',
-    default: '.',
-  },
-};
+export const builder = {};
 
 export function handler(argv: Arguments) {
   const binaryArguments = getArguments(argv);

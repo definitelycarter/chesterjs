@@ -7,7 +7,6 @@ interface BrowserProps {
 }
 export function Browser(props: BrowserProps) {
   const [folder, setFolder] = useState<Folder>();
-
   useEffect(() => {
     async function load() {
       const root = await resolveFiles(props.config);
@@ -15,7 +14,11 @@ export function Browser(props: BrowserProps) {
     }
     load();
   }, [props.config]);
-
   if (!folder) return null;
-  return <BrowserComponent folder={folder} />;
+
+  function runFolder(folder: Folder) {
+    return;
+  }
+
+  return <BrowserComponent folder={folder} onRunFolder={runFolder} />;
 }

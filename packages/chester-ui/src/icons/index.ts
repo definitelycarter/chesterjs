@@ -1,1 +1,1 @@
-export { StatusIcon } from './status-icon';
+export { StatusIcon, StatusIconProps } from './status-icon';

@@ -13,8 +13,6 @@
   },
   "dependencies": {
     "yargs": "^13.2.4",
-    "@chester/chester": "^0.0.1",
-    "@chester/config": "^0.0.1",
-    "@chester/http-server": "^0.0.1"
+    "@chester/config": "^0.0.1"
   }
 }

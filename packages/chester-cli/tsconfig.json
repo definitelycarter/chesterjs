@@ -5,9 +5,5 @@
     "rootDir": "src",
     "declarationDir": "types"
   },
-  "references": [
-    { "path": "../chester" },
-    { "path": "../chester-config" },
-    { "path": "../chester-http-server" }
-  ]
+  "references": [{ "path": "../chester" }, { "path": "../chester-config" }]
 }
