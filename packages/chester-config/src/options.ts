@@ -3,10 +3,11 @@ export interface Options {
 }
 
 export interface Config {
+  root: string;
+  project: string;
   host?: string;
   files: string | string[];
   runner: string;
-  root: string;
   globals?: () => Object;
   preprocessor?: string;
 }

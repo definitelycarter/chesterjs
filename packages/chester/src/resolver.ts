@@ -3,7 +3,11 @@ import glob from 'glob';
 import * as path from 'path';
 import { Config } from '@chester/config';
 
-export function resolveFiles({ files, root }: Config): Promise<Folder> {
+export function resolveFiles({
+  files,
+  root,
+  project,
+}: Config): Promise<Folder> {
   let promise: Promise<string[]>;
   if (Array.isArray(files)) {
     promise = files.reduce((promise, file) => {
@@ -22,7 +26,7 @@ export function resolveFiles({ files, root }: Config): Promise<Folder> {
   }
 
   const folder: Folder = {
-    name: path.basename(root),
+    name: path.basename(project),
     path: root,
     folders: [],
     files: [],

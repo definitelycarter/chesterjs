@@ -1,7 +1,6 @@
 import { Config } from '@chester/config';
 import express from 'express';
 import path from 'path';
-import console = require('console');
 
 const router = express.Router();
 
